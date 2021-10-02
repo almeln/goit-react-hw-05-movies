@@ -1,12 +1,44 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { fetchPopularMovies } from 'services/movies-api';
+
 export default function HomeView() {
+  // const { url } = useRouteMatch();
+  // console.log(url);
+
+  const [popularMovies, setPopularMovies] = useState(null);
+
+  useEffect(() => {
+    try {
+      fetchPopularMovies().then(data => {
+        setPopularMovies(data.results);
+        // console.log(data.results);
+      });
+    } catch {
+      console.log('ERROR');
+    }
+  }, []);
+
   return (
     <>
       <h2>Trending today</h2>
       <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
+        {popularMovies &&
+          popularMovies.map(popularMovie => (
+            <li key={popularMovie.id}>
+              <Link to={`/movies/${popularMovie.id}`}>
+                {popularMovie.original_title}
+              </Link>
+            </li>
+          ))}
       </ul>
+      {/* {popularMovies && popularMovies.map(popularMovie => 
+      <ul>
+        <li key={popularMovie.id}>
+          <Link to={`/movies/${popularMovie.id}`}>{popularMovie.original_title}</Link>
+        </li>
+      </ul>
+      )} */}
     </>
   );
 }
