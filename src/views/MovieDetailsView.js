@@ -25,7 +25,6 @@ const options = {
 export default function MovieDetailsView() {
   const history = useHistory();
   const location = useLocation();
-  console.log('MovieDetailsViewLocation', location);
   const { url } = useRouteMatch();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -39,7 +38,7 @@ export default function MovieDetailsView() {
   }, [movieId]);
 
   const onGoBack = () => {
-    history.push(location?.state?.from ?? '/');
+    history.push(location?.state?.from?.location ?? '/');
   };
 
   return (
@@ -48,7 +47,7 @@ export default function MovieDetailsView() {
         <>
           {/* <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movieId.original_title}/> */}
           <button type="button" onClick={onGoBack}>
-            Go back
+            {location?.state?.from?.label ?? 'Go back'}
           </button>
           <img src={movie.poster_path} alt={movie.original_title} />
           <h2>{movie.original_title}</h2>
@@ -65,10 +64,36 @@ export default function MovieDetailsView() {
           <h4>Additional information</h4>
           <ul>
             <li>
-              <NavLink to={`${url}/cast`}>Cast</NavLink>
+              {/* <NavLink to={`${url}/cast`}>Cast</NavLink> */}
+              <NavLink
+                to={{
+                  pathname: `${url}/cast`,
+                  state: {
+                    from: {
+                      location,
+                      label: 'Go back to movies',
+                    },
+                  },
+                }}
+              >
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              {/* <NavLink to={`${url}/reviews`}>Reviews</NavLink> */}
+              <NavLink
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: {
+                    from: {
+                      location,
+                      label: 'Go back to movie',
+                    },
+                  },
+                }}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
           <hr />

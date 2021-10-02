@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { fetchPopularMovies } from 'services/movies-api';
+import MoviesList from 'components/MoviesList';
 
 export default function HomeView() {
   // const { url } = useRouteMatch();
@@ -21,13 +22,15 @@ export default function HomeView() {
   return (
     <>
       <h2>Trending today</h2>
-      <ul>
+      <MoviesList
+        movies={popularMovies}
+        location={location}
+        backTo={'popular movies'}
+      />
+      {/* <ul>
         {popularMovies &&
           popularMovies.map(popularMovie => (
             <li key={popularMovie.id}>
-              {/* <Link to={`/movies/${popularMovie.id}`}>
-                {popularMovie.original_title}
-              </Link> */}
               <Link
                 to={{
                   pathname: `/movies/${popularMovie.id}`,
@@ -38,14 +41,7 @@ export default function HomeView() {
               </Link>
             </li>
           ))}
-      </ul>
-      {/* {popularMovies && popularMovies.map(popularMovie => 
-      <ul>
-        <li key={popularMovie.id}>
-          <Link to={`/movies/${popularMovie.id}`}>{popularMovie.original_title}</Link>
-        </li>
-      </ul>
-      )} */}
+      </ul> */}
     </>
   );
 }

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { fetchMovieByName } from 'services/movies-api';
 import Searchbar from 'components/SearchBar';
+import MoviesList from 'components/MoviesList';
 
 export default function MoviesView() {
+  const location = useLocation();
   const [searchName, setSearchName] = useState('');
   const [movies, setMovies] = useState([]);
 
@@ -38,10 +41,7 @@ export default function MoviesView() {
   return (
     <>
       <Searchbar onSubmit={handleFormSubmit}></Searchbar>
-      <ul>
-        {movies &&
-          movies.map(movie => <li key={movie.id}>{movie.original_title}</li>)}
-      </ul>
+      <MoviesList movies={movies} location={location} backTo={'movies'} />
     </>
   );
 }
