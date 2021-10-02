@@ -54,7 +54,7 @@ function App() {
             <MovieDetailsView />
           </Route> */}
           <Route
-            path="/movies/:movieId"
+            path="/movies/:slug"
             component={withQuicklink(MovieDetailsView, options)}
           />
           <Route>

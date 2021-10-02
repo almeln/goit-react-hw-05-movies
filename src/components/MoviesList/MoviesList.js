@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import slugify from 'slugify';
+
+const makeSlug = string => slugify(string, { lower: true });
 
 export default function MoviesList({ movies, location, backTo }) {
   return (
@@ -8,7 +11,9 @@ export default function MoviesList({ movies, location, backTo }) {
           <li key={movie.id}>
             <Link
               to={{
-                pathname: `/movies/${movie.id}`,
+                pathname: `/movies/${makeSlug(
+                  `${movie.original_title} ${movie.id}`,
+                )}`,
                 state: {
                   from: {
                     location,

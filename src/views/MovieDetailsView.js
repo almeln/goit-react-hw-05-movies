@@ -26,7 +26,8 @@ export default function MovieDetailsView() {
   const history = useHistory();
   const location = useLocation();
   const { url } = useRouteMatch();
-  const { movieId } = useParams();
+  const { slug } = useParams();
+  const movieId = slug.match(/[a-z0-9]+$/)[0];
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export default function MovieDetailsView() {
                   pathname: `${url}/cast`,
                   state: {
                     from: {
-                      location,
+                      location: location?.state?.from.location,
                       label: 'Go back to movies',
                     },
                   },
@@ -86,8 +87,8 @@ export default function MovieDetailsView() {
                   pathname: `${url}/reviews`,
                   state: {
                     from: {
-                      location,
-                      label: 'Go back to movie',
+                      location: location?.state?.from.location,
+                      label: 'Go back to movies search',
                     },
                   },
                 }}
