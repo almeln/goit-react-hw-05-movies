@@ -1,6 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Route, useParams } from 'react-router';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import {
+  NavLink,
+  useRouteMatch,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 import { fetchMovieById } from 'services/movies-api';
 // import MovieCastView from './MovieCastView';
 // import MovieReviewsView from './MovieReviewsView';
@@ -18,6 +23,9 @@ const options = {
 };
 
 export default function MovieDetailsView() {
+  const history = useHistory();
+  const location = useLocation();
+  console.log('MovieDetailsViewLocation', location);
   const { url } = useRouteMatch();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -30,11 +38,18 @@ export default function MovieDetailsView() {
     }
   }, [movieId]);
 
+  const onGoBack = () => {
+    history.push(location?.state?.from ?? '/');
+  };
+
   return (
     <>
       {movie && (
         <>
           {/* <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movieId.original_title}/> */}
+          <button type="button" onClick={onGoBack}>
+            Go back
+          </button>
           <img src={movie.poster_path} alt={movie.original_title} />
           <h2>{movie.original_title}</h2>
           <p>User score: {movie.vote_average}</p>

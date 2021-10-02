@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { fetchPopularMovies } from 'services/movies-api';
 
 export default function HomeView() {
   // const { url } = useRouteMatch();
   // console.log(url);
-
+  const location = useLocation();
   const [popularMovies, setPopularMovies] = useState(null);
 
   useEffect(() => {
     try {
       fetchPopularMovies().then(data => {
         setPopularMovies(data.results);
-        // console.log(data.results);
       });
     } catch {
       console.log('ERROR');
@@ -26,7 +25,15 @@ export default function HomeView() {
         {popularMovies &&
           popularMovies.map(popularMovie => (
             <li key={popularMovie.id}>
-              <Link to={`/movies/${popularMovie.id}`}>
+              {/* <Link to={`/movies/${popularMovie.id}`}>
+                {popularMovie.original_title}
+              </Link> */}
+              <Link
+                to={{
+                  pathname: `/movies/${popularMovie.id}`,
+                  state: { from: location },
+                }}
+              >
                 {popularMovie.original_title}
               </Link>
             </li>
