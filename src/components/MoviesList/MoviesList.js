@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import slugify from 'slugify';
+import css from 'components/MoviesList/MoviesList.module.css';
 
 const makeSlug = string => slugify(string, { lower: true });
 
 export default function MoviesList({ movies, location, backTo }) {
   return (
-    <ul>
+    <ul className={css.moviesList}>
       {movies &&
         movies.map(movie => (
-          <li key={movie.id}>
+          <li key={movie.id} className={css.movieItem}>
             <Link
               to={{
                 pathname: `/movies/${makeSlug(
@@ -22,21 +23,24 @@ export default function MoviesList({ movies, location, backTo }) {
                   },
                 },
               }}
+              className={css.link}
             >
               {movie.poster_path ? (
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.name}
-                  width="200"
+                  width="300"
+                  className={css.image}
                 />
               ) : (
                 <img
                   src="https://i.ibb.co/s9cXZV0/poster.jpg"
                   alt={movie.name}
-                  width="200"
+                  width="300"
+                  className={css.image}
                 />
               )}
-              {movie.original_title}
+              <div className={css.movieTitle}>{movie.original_title}</div>
             </Link>
           </li>
         ))}

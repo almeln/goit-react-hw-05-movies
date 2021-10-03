@@ -10,6 +10,7 @@ import { fetchMovieById } from 'services/movies-api';
 // import MovieCastView from './MovieCastView';
 // import MovieReviewsView from './MovieReviewsView';
 import { withQuicklink } from 'quicklink/dist/react/hoc.js';
+import css from 'components/MovieDetailsPage/MovieDetailsPage.module.css';
 
 const MovieCastView = lazy(() =>
   import('../../components/Cast' /* webpackChunkName: "cast-view" */),
@@ -46,7 +47,7 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <>
-          <button type="button" onClick={onGoBack}>
+          <button type="button" onClick={onGoBack} className={css.goBackBtn}>
             {location?.state?.from?.label ?? 'Go back'}
           </button>
           <div>
@@ -70,7 +71,9 @@ export default function MovieDetailsPage() {
             <h3>Genres</h3>
             <p>
               {movie.genres.map(({ name, id }) => (
-                <span key={id}>{name}</span>
+                <span key={id} className={css.genres}>
+                  {name}
+                </span>
               ))}
             </p>
           </div>
