@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
+import PropTypes from 'prop-types';
 
 export default function Searchbar({ onSubmit }) {
   const [searchName, setSearchName] = useState('');
@@ -49,3 +50,7 @@ export default function Searchbar({ onSubmit }) {
     </form>
   );
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

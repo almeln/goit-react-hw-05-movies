@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import slugify from 'slugify';
 
 const makeSlug = string => slugify(string, { lower: true });
@@ -42,3 +43,9 @@ export default function MoviesList({ movies, location, backTo }) {
     </ul>
   );
 }
+
+MoviesList.propTypes = {
+  movies: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+  backTo: PropTypes.string.isRequired,
+};
