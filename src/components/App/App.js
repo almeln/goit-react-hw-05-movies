@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router';
 // import MovieDetailsView from 'views/MovieDetailsView';
 // import MoviesView from 'views/MoviesView';
 // import NotFoundView from 'views/NotFoundView';
+import { Toaster } from 'react-hot-toast';
 import './App.css';
 import { withQuicklink } from 'quicklink/dist/react/hoc.js';
 
@@ -62,6 +63,7 @@ function App() {
           </Route>
         </Switch>
       </Suspense>
+      <Toaster position="top-right" />
     </Container>
   );
 }

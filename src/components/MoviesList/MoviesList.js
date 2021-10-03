@@ -22,6 +22,19 @@ export default function MoviesList({ movies, location, backTo }) {
                 },
               }}
             >
+              {movie.poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.name}
+                  width="200"
+                />
+              ) : (
+                <img
+                  src="https://i.ibb.co/s9cXZV0/poster.jpg"
+                  alt={movie.name}
+                  width="200"
+                />
+              )}
               {movie.original_title}
             </Link>
           </li>
