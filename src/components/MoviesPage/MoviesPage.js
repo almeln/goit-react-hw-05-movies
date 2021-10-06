@@ -18,6 +18,10 @@ export default function MoviesPage() {
     }
 
     setSearchName(searchInput);
+    // history.push({
+    //   ...location,
+    //   search: `query=${searchInput}`,
+    // });
     setMovies([]);
   };
 
@@ -44,6 +48,12 @@ export default function MoviesPage() {
       setStatus('rejecteed');
     }
   }, [searchName]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Сохраняет запрос поиска
+  useEffect(() => {
+    const newSearch = new URLSearchParams(location.search).get('query');
+    setSearchName(newSearch);
+  }, [location.search]);
 
   // State-машина
   if (status === 'idle') {
